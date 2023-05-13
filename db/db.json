@@ -1,0 +1,11 @@
+{
+    "categories": [
+        { "id" : 1, "title": "fridges"},
+        { "id" : 2, "title": "kettles"},
+        { "id" : 3, "title": "television"}
+    ],
+    "products": [
+        {"id" : 1, "title": "beko white fridge freezer"},
+        {"id" : 2, "title": "whitepool white fridge freezer"}
+    ]
+}
