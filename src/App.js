@@ -1,49 +1,40 @@
 import React, { useState, useEffect } from "react";
 import Category from "./component/Category";
-import { fetcher } from "./fetcher";
+import { getCategories, getProducts } from "./fetcher";
+
+import CategoryProduct from "./component/CategoryProduct";
 
 function App() {
-  const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState({ errorMessage: "", data: [] });
+  const [products, setProducts] = useState({ errorMessage: "", data: [] });
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetcher("/categories");
-      setCategories(data);
+      const responseObject = await getCategories();
+      setCategories(responseObject);
     };
     fetchData();
   }, []);
 
-  const handleleClick = (id) => {
-    fetch("http://localhost:3001/products?catid=" + id)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setProducts(data);
-      });
+  const handleClick = async (id) => {
+    const responseObject = await getProducts(id);
+    setProducts(responseObject);
   };
 
-  const renderCategory = () => {
-    return categories.map((categories) => {
-      return (
-        <Category
-          key={categories.id}
-          title={categories.title}
-          OnCategoryClick={() => handleleClick(categories.id)}
-        />
-      );
-    });
+  const renderCategories = () => {
+    return categories.data.map((category) => (
+      <Category
+        key={category.id}
+        title={category.title}
+        onCategoryClick={() => handleClick(category.id)}
+      />
+    ));
   };
 
-  const renderProduct = () => {
-    return products.map((product) => {
-      return (
-        <p>
-          {/* {product.id} */}
-          {product.title}
-        </p>
-      );
-    });
+  const renderProducts = () => {
+    return products.data.map((product) => (
+      <CategoryProduct key={product.id} {...product} />
+    ));
   };
 
   return (
@@ -51,13 +42,15 @@ function App() {
       <header>My Store</header>
       <section>
         <nav>
-          <ul>{categories && renderCategory()}</ul>
+          {categories.errorMessage && (
+            <div>Error: {categories.errorMessage}</div>
+          )}
+          <ul>{categories.data && renderCategories()}</ul>
         </nav>
         <article>
-          <h1>
-            <span>Products</span>
-            <ul>{products && renderProduct()}</ul>
-          </h1>
+          <h1>Products</h1>
+          {products.errorMessage && <div>Error: {products.errorMessage}</div>}
+          {products.data && renderProducts()}
         </article>
       </section>
       <footer>

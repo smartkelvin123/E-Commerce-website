@@ -1,62 +1,107 @@
-*{
+* {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    padding: 0px;
+    margin: 0px;
 }
-body{
-    background-color: #fafafa;
-    font-family: Arial, Helvetica, sans-serif;
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
 }
+
+a {
+    color: darkslategray;
+    text-decoration: none;
+}
+
+/* Style the header */
 header {
     background-color: #666;
     padding: 30px;
     text-align: center;
     font-size: 35px;
     color: white;
+    display: grid;
+    grid-template-columns: 0.1fr 0.1fr 1fr 0.1fr;
 }
 
-footer {
-    background-color: #008899;
-    padding: 30px;
-    text-align: right;
-    font-size: 35px;
+header a {
     color: white;
 }
-section{
+
+#search {
+    display: flex;
+}
+
+#search input {
+    margin-left: 10px;
+    height: 30px;
+    margin-top: 5px;
+}
+
+#headerHomeIcon {
+    justify-self: start;
+}
+
+#headerTitle {
+    justify-self: center;
+}
+
+#headerCartIcon {
+    justify-self: end;
+}
+
+/* Container for flexboxes */
+section {
     display: -webkit-flex;
     display: flex;
-    justify-content: flex-start;
-    /* -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-justify-content: space-around; */
 }
-nav{
-    -webkit-flex : 0.5;
-    flex : 0.5;
+
+/* Style the navigation menu */
+nav {
+    -webkit-flex: 0.5;
     -ms-flex: 0.5;
+    flex: 0.1;
     background: #ccc;
     padding: 20px;
-    text-align: left;
-    width: 50%;
-
 }
-/* nav ul{
+
+/* Style the list inside the menu */
+nav ul {
     list-style-type: none;
-    padding: 0
-
-  
-} */
-/* nav ul li{
-    display: inline-block;
+    padding: 0;
+    cursor: pointer;
 }
-nav ul li a{
-    text-decoration: none;
-    color: #333;
+
+nav ul li {
+    padding-bottom: 5px;
+}
+
+nav ul li:hover {
+    color: blue;
+}
+
+main {
+    flex: 0.9;
+    padding-top: 20px;
+    min-height: 1600px;
+}
+
+/* Style the footer */
+footer {
+    background-color: #777;
     padding: 10px;
-}
-nav ul li a:hover{
-    background-color: #333;
+    text-align: center;
     color: white;
-} */
+}
 
+footer a {
+    color: white;
+}
+
+/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+@media (max-width: 600px) {
+    section {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+    }
+}
