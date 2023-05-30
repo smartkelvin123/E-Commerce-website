@@ -6,22 +6,22 @@ const CategoryProduct = ({ title, image, specs, features, price, stock }) => {
       <div className="category-product-title">{title}</div>
       <figure>
         <div className="category-product-image-container">
-          <img src={`public/assets/${image}`} alt={title} />
+          <img src={require(`../../public/asset/${image}`)} alt={title} />
         </div>
       </figure>
       <aside>
         <div className="category-product-info-dimension">
-          <p>Dimension</p>
+          <h3>Dimension</h3>
           <label>{specs.dimension}</label>
         </div>
         {specs.capacity && (
           <div className="category-product-info-capacity">
-            <p>capacity</p>
+            <h3>capacity</h3>
             <label>{specs.capacity}</label>
           </div>
         )}
         <div className="category-product-info-features">
-          <p>Features</p>
+          <h3>Features</h3>
           <ul>
             {features?.map((feature) => (
               <li key={feature}>{feature}</li>
