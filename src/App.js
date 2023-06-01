@@ -42,7 +42,7 @@ function App() {
 
   return (
     <>
-      <header>My Store</header>
+      <header>Our Store</header>
       <section>
         <nav>
           {categories.errorMessage && (

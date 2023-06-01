@@ -13,20 +13,19 @@ a {
     text-decoration: none;
 }
 
-/* Style the header */
+
+
 header {
     background-color: #666;
     padding: 30px;
     text-align: center;
     font-size: 35px;
     color: white;
-    display: grid;
-    grid-template-columns: 0.1fr 0.1fr 1fr 0.1fr;
-}
+    display: flex;
+    justify-content: center;
+  }
 
-header a {
-    color: white;
-}
+
 
 #search {
     display: flex;
@@ -96,15 +95,16 @@ article{
 
 /* Style the footer */
 footer {
-    background-color: #777;
-    padding: 10px;
+    background-color: #666;
+    padding: 30px;
     text-align: center;
+    font-size: 35px;
     color: white;
-}
+    display: flex;
+    justify-content: center;
+  }
 
-footer a {
-    color: white;
-}
+
 .category-product-title {
     grid-column:  1/span 3;
     color: darkslategray;
