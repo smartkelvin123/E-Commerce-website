@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import App from "./App";
 import "./App.css";
-import ProductDetail from "./component/productDetail";
+
+import ProductDetail from "./component/ProductDetail";
 import CheckOut from "./component/checkOut";
 import Basket from "./component/basket";
 

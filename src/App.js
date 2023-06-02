@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Category from "./component/Category";
-import { getCategories, getProducts, fetcher } from "./fetcher";
+import { getCategories, getProducts } from "./fetcher";
 import "./App.css";
 
 import CategoryProduct from "./component/CategoryProduct";

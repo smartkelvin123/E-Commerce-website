@@ -28,6 +28,10 @@ export const getProducts = (id) => {
   return fetcher(`/products?catid=${id}`);
 };
 
+export const getProductById = (id) => {
+  return fetcher("/products/" + id);
+};
+
 // export const getProducts = (category) => fetcher(`/products?catid=${category}`);
 
 // export const getProducts = (category) => {
