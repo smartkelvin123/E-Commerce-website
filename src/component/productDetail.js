@@ -8,7 +8,7 @@ import { getProductById } from "../fetcher";
 const ProductDetail = () => {
   const [product, setProduct] = useState({
     errorMessage: "",
-    data: {},
+    data: [],
   });
   const { productId } = useParams();
 
@@ -19,6 +19,10 @@ const ProductDetail = () => {
     };
     fetchData();
   }, [productId]);
+
+  const createMarkup = () => {
+    return { __html: product.data.description };
+  };
 
   return (
     <ProductInfoArticle>
@@ -77,9 +81,9 @@ const ProductDetail = () => {
         </ProductInfoAction>
       </aside>
 
-      {/* <ProductInfoDescription
+      <ProductInfoDescription
         dangerouslySetInnerHTML={createMarkup()}
-      ></ProductInfoDescription> */}
+      ></ProductInfoDescription>
     </ProductInfoArticle>
   );
 };
@@ -93,9 +97,9 @@ const ProductInfoArticle = styled.article`
   column-gap: 20px;
 `;
 
-// const ProductInfoDescription = styled.div`
-//   grid-column: 1 / span 3;
-// `;
+const ProductInfoDescription = styled.div`
+  grid-column: 1 / span 3;
+`;
 
 const ProductTitle = styled.div`
   grid-column: 1 / span 3;
