@@ -40,7 +40,7 @@ const CartContextProvider = ({ children }) => {
       payload: undefined,
     });
   };
-  const getItem = () => {
+  const getCartItems = () => {
     return state.cartItem;
   };
 
@@ -49,7 +49,7 @@ const CartContextProvider = ({ children }) => {
     removeProduct,
     increaseQuantity,
     decreaseQuantity,
-    getItem,
+    getCartItems,
     ClearBasket,
     ...state,
   };

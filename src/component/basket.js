@@ -1,11 +1,76 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 
-function Basket() {
+import { useNavigate, Link } from "react-router-dom";
+
+import { CartContext } from "../contexts/cartContext";
+
+import { TrashIcon, UpIcon, DownIcon } from "./icon";
+
+// import { formatNumber } from "../utils";
+
+const Basket = () => {
+  const [cartItems, setCartItems] = useState([]);
+
+  const navigate = useNavigate();
+  const {
+    getCartItems,
+    removeProduct,
+    increaseQuantity,
+    decreaseQuantity,
+    clearBasket,
+  } = useContext(CartContext);
+
+  useEffect(() => {
+    setCartItems(getCartItems());
+  }, [getCartItems]);
+
+  const renderCart = () => {
+    if (cartItems.length > 0) {
+      return cartItems.map((p) => (
+        <React.Fragment key={p.id}>
+          <div>
+            <Link to={`/products/${p.id}`}>{p.title}</Link>
+          </div>
+          <BasketQty>
+            {p.quantity}
+
+            <UpIcon
+              width={20}
+              onClick={() => setCartItems(increaseQuantity({ id: p.id }))}
+            ></UpIcon>
+            <DownIcon
+              width={20}
+              onClick={() => setCartItems(decreaseQuantity({ id: p.id }))}
+            ></DownIcon>
+            <TrashIcon
+              width={20}
+              onClick={() => setCartItems(removeProduct({ id: p.id }))}
+            ></TrashIcon>
+          </BasketQty>
+          <BasketPrice>{p.price}</BasketPrice>
+        </React.Fragment>
+      ));
+    } else {
+      return <div>The basket is currently empty</div>;
+    }
+  };
+
+  const renderTotal = () => {
+    const cartItems = getCartItems();
+    const total = cartItems.reduce(
+      (total, item) => (total += item.price * item.quantity),
+      0
+    );
+    return total;
+  };
+
   return (
     <BasketContainer>
       <BasketTitle>Shopping Basket</BasketTitle>
-      <BasketButton>Checkout</BasketButton>
+      <BasketButton onClick={() => navigate("/checkout")}>
+        Checkout
+      </BasketButton>
 
       <BasketTable>
         <BasketHeader>
@@ -13,13 +78,18 @@ function Basket() {
           <h4>Quantity</h4>
           <h4>Price</h4>
         </BasketHeader>
+        <BasketHeaderLine />
+        <BasketHeader>{renderCart()}</BasketHeader>
+        <BasketHeaderLine />
       </BasketTable>
 
-      <BasketButton>Clear</BasketButton>
-      <BasketTotal>Total: $0 </BasketTotal>
+      <BasketButton onClick={() => setCartItems(clearBasket())}>
+        Clear
+      </BasketButton>
+      <BasketTotal>Total: {renderTotal()}</BasketTotal>
     </BasketContainer>
   );
-}
+};
 
 export default Basket;
 
