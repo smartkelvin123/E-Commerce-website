@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { CartContext } from "../contexts/cartContext";
+import { CartContext } from "../contexts/CartContext";
 
 const CategoryProduct = ({
   id,

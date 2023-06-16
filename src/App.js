@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-
 import { getCategories } from "./fetcher";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ProductDetail from "./component/ProductDetail";
-import CheckOut from "./component/checkOut";
-import Basket from "./component/basket";
-import Category from "./component/Category";
-import Layout from "./component/Layout";
-import Home from "./component/Home";
+import ProductDetail from "./components/ProductDetail";
+import CheckOut from "./components/checkOut";
+import Basket from "./components/basket";
+import Category from "./components/Category";
+import Layout from "./components/Layout";
+import Home from "./components/Home";
+import OrderConfirmation from "./components/OrderConfirmation";
 
 function App() {
   const [categories, setCategories] = useState({ errorMessage: "", data: [] });
@@ -29,8 +29,10 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/checkout" element={<CheckOut />} />
             <Route path="/basket" element={<Basket />} />
-            <Route path="/products/:productId" element={<ProductDetail />} />
-            <Route path="/categories/:categoryId" element={<Category />} />
+
+            <Route path="categories/:categoryId" element={<Category />} />
+            <Route path="products/:productId" element={<ProductDetail />} />
+            <Route path="orderconfirmation" element={OrderConfirmation} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./App.css";
 
-import CartContextProvider from "./contexts/cartContext";
+import CartContextProvider from "./contexts/CartContext";
 
 ReactDOM.render(
   <React.StrictMode>

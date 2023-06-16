@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { useNavigate, Link } from "react-router-dom";
 
-import { CartContext } from "../contexts/cartContext";
+import { CartContext } from "../contexts/CartContext";
 
 import { TrashIcon, UpIcon, DownIcon } from "./icon";
 

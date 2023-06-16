@@ -1,47 +1,44 @@
 import React, { createContext, useReducer } from "react";
-import { cartReducer } from "./cartReducer";
+import { cartReducer } from "./CartReducer";
 
 export const CartContext = createContext();
-const initialState = { cartItem: [] };
+
+const Storage = localStorage.getItem("cart")
+  ? JSON.parse(localStorage.getItem("cart"))
+  : [];
+
+const initialState = { cartItems: Storage };
 
 const CartContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   const addProduct = (payload) => {
-    dispatch({
-      type: "ADD",
-      payload,
-    });
+    dispatch({ type: "ADD", payload });
+    return state.cartItems;
   };
 
   const removeProduct = (payload) => {
-    dispatch({
-      type: "REMOVE",
-      payload,
-    });
+    dispatch({ type: "REMOVE", payload });
+    return state.cartItems;
   };
 
   const increaseQuantity = (payload) => {
-    dispatch({
-      type: "INQTY",
-      payload,
-    });
-  };
-  const decreaseQuantity = (payload) => {
-    dispatch({
-      type: "DECQTY",
-      payload,
-    });
+    dispatch({ type: "INCQTY", payload });
+    return state.cartItems;
   };
 
-  const ClearBasket = () => {
-    dispatch({
-      type: "CLEAR",
-      payload: undefined,
-    });
+  const decreaseQuantity = (payload) => {
+    dispatch({ type: "DECQTY", payload });
+    return state.cartItems;
   };
+
+  const clearBasket = () => {
+    dispatch({ type: "CLEAR", payload: undefined });
+    return state.cartItems;
+  };
+
   const getCartItems = () => {
-    return state.cartItem;
+    return state.cartItems;
   };
 
   const contextValues = {
@@ -49,8 +46,8 @@ const CartContextProvider = ({ children }) => {
     removeProduct,
     increaseQuantity,
     decreaseQuantity,
+    clearBasket,
     getCartItems,
-    ClearBasket,
     ...state,
   };
 

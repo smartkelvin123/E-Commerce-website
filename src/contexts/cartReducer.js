@@ -1,36 +1,55 @@
+const Storage = (cartItems) => {
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cartItems.length > 0 ? cartItems : [])
+  );
+};
+
 export const cartReducer = (state, action) => {
   let index = -1;
 
-  if (action.payload) {
-    index = state.cartItem.findIndex((x) => x.id === action.payload.id);
-  }
+  if (action.payload)
+    index = state.cartItems.findIndex((x) => x.id === action.payload.id);
+
+  let newItems = [...state.cartItems];
 
   switch (action.type) {
     case "ADD":
     case "INQTY":
       if (index === -1) {
-        state.cartItem.push({ ...action.payload, quantity: 1 });
+        state.cartItems.push({ ...action.payload, quantity: 1 });
+        // newItems.push({ ...action.payload, quantity: 1 });
       } else {
-        state.cartItem[index].quantity++;
+        // newItems[index].quantity++;
+        state.cartItems[index].quantity++;
       }
-      return { ...state };
+      break;
 
     case "REMOVE":
       if (index !== -1) {
-        state.cartItem.splice(index, 1);
+        state.cartItems.splice(index, 1);
+        // newItems = state.cartItems.filter((x) => x.id !== action.payload.id);
       }
-      return { ...state };
+      break;
 
-    case "DEQTY":
-      if (index !== -1 && state.cartItem[index].quantity > 1) {
-        state.cartItem[index].quantity--;
+    case "DECQTY":
+      if (index > -1) {
+        if (state.cartItems[index].quantity > 1)
+          state.cartItems[index].quantity--;
+        // newItems[index].quantity--;
       }
-      return { ...state };
+      break;
 
     case "CLEAR":
-      return { ...state, cartItem: [] };
+      // state.cartItems = [];
+      newItems = [];
+      break;
 
     default:
-      return state;
   }
+
+  state.cartItems = newItems;
+  Storage(newItems);
+
+  return state;
 };
