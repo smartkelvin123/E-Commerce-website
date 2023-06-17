@@ -3,7 +3,7 @@ import React from "react";
 import { Outlet, Link } from "react-router-dom";
 
 import { HomeIcon, CartIcon } from "./icon";
-// import Search from "./search";
+import Search from "./Search";
 
 const Layout = ({ categories }) => {
   const renderCategories = () => {
@@ -22,7 +22,7 @@ const Layout = ({ categories }) => {
             <HomeIcon width={40} />
           </Link>
         </div>
-        {/* <Search /> */}
+        <Search />
 
         <div id="headerTitle">Our Store</div>
         <div id="headerCartIcon">

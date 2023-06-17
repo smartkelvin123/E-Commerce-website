@@ -9,6 +9,7 @@ import Category from "./components/Category";
 import Layout from "./components/Layout";
 import Home from "./components/Home";
 import OrderConfirmation from "./components/OrderConfirmation";
+import SearchResult from "./components/SearchResult";
 
 function App() {
   const [categories, setCategories] = useState({ errorMessage: "", data: [] });
@@ -29,10 +30,11 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/checkout" element={<CheckOut />} />
             <Route path="/basket" element={<Basket />} />
-
             <Route path="categories/:categoryId" element={<Category />} />
             <Route path="products/:productId" element={<ProductDetail />} />
-            <Route path="orderconfirmation" element={OrderConfirmation} />
+            <Route path="orderconfirmation" element={<OrderConfirmation />} />
+            <Route path="/search" element={<SearchResult />} />
+            {""}
           </Route>
         </Routes>
       </BrowserRouter>
