@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -15,7 +15,7 @@ const CategoryProduct = ({
 }) => {
   const navigate = useNavigate();
 
-  const { addProduct } = CartContext;
+  const { addProduct } = useContext(CartContext);
 
   return (
     <ProductInfoArticle>

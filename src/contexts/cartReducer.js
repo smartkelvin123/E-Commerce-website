@@ -11,7 +11,9 @@ export const cartReducer = (state, action) => {
   if (action.payload)
     index = state.cartItems.findIndex((x) => x.id === action.payload.id);
 
-  let newItems = [...state.cartItems];
+  // let newItems = [...state.cartItems];
+
+  let newCartItems = [...state.cartItems];
 
   switch (action.type) {
     case "ADD":
@@ -42,14 +44,14 @@ export const cartReducer = (state, action) => {
 
     case "CLEAR":
       // state.cartItems = [];
-      newItems = [];
+      newCartItems = [];
       break;
 
     default:
   }
 
-  state.cartItems = newItems;
-  Storage(newItems);
+  state.cartItems = newCartItems;
+  Storage(newCartItems);
 
   return state;
 };

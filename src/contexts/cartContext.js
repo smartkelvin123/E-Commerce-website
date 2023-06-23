@@ -14,12 +14,11 @@ const CartContextProvider = ({ children }) => {
 
   const addProduct = (payload) => {
     dispatch({ type: "ADD", payload });
-    return state.cartItems;
+    return state.cartItems; // Correct: return updated cartItems from state object
   };
 
   const removeProduct = (payload) => {
     dispatch({ type: "REMOVE", payload });
-    return state.cartItems;
   };
 
   const increaseQuantity = (payload) => {
@@ -50,6 +49,13 @@ const CartContextProvider = ({ children }) => {
     getCartItems,
     ...state,
   };
+
+  //   return (
+  //     <CartContext.Provider value={contextValues}>
+  //       {children}
+  //     </CartContext.Provider>
+  //   );
+  // };
 
   return (
     <CartContext.Provider value={contextValues}>

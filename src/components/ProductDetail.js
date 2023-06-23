@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
+import { CartContext } from "../contexts/CartContext";
 import { getProductById } from "../fetcher";
 
 const ProductDetail = () => {
+  const { addProduct } = useContext(CartContext);
   const [product, setProduct] = useState({
     errorMessage: "",
-    data: [],
+    data: {},
   });
   const { productId } = useParams();
 
@@ -21,7 +21,7 @@ const ProductDetail = () => {
   }, [productId]);
 
   const createMarkup = () => {
-    return { __html: product.data.description };
+    return { __html: product.data?.description };
   };
 
   return (
@@ -31,7 +31,7 @@ const ProductDetail = () => {
       <figure>
         <ProductImageContainer>
           <ProductImage
-            src={require(`../../public/asset/${product.data.image}`)}
+            src={`/public/assets/${product.data.image}`}
             alt={product.data.title}
           />
         </ProductImageContainer>
@@ -77,7 +77,17 @@ const ProductDetail = () => {
         </ProductInfoStock>
 
         <ProductInfoAction>
-          <ProductInfoActionButton>Add to Basket</ProductInfoActionButton>
+          <ProductInfoActionButton
+            onClick={() =>
+              addProduct({
+                id: product.data.id,
+                title: product.data.title,
+                price: product.data.price,
+              })
+            }
+          >
+            Add to Basket
+          </ProductInfoActionButton>
         </ProductInfoAction>
       </aside>
 
