@@ -1,16 +1,16 @@
-import React from "react";
-
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
-
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../contexts/CartContext";
+import RelatedProducts from "./RelatedProducts";
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const [form, setForm] = React.useState({
+  const { cartItems } = useContext(CartContext);
+  const [form, setForm] = useState({
     name: "",
     email: "",
     shippingAddress1: "",
-
     touched: {
       email: false,
       password: false,
@@ -59,18 +59,14 @@ const Checkout = () => {
   return (
     <form onSubmit={handleSubmit}>
       <CheckoutContainer>
-        {/* Row 1 */}
         <CheckoutTitle>Shopping Checkout</CheckoutTitle>
 
-        {/* Row 4 */}
         <CheckoutHeader>
           <h4>Your Details</h4>
         </CheckoutHeader>
 
-        {/* Row 5 */}
         <CheckoutHeaderLine />
 
-        {/* Row 6 */}
         <CheckoutTable>
           <CheckoutFormLabel>Name</CheckoutFormLabel>
           <CheckoutInput
@@ -90,6 +86,17 @@ const Checkout = () => {
             placeholder="Enter email"
           />
         </CheckoutTable>
+
+        <CheckoutBasket>
+          <h4>Shopping Basket</h4>
+          {cartItems.map((item) => (
+            <CheckoutBasketItem key={item.id}>
+              <span>{item.title}</span>
+              <span>Quantity: {item.quantity}</span>
+              <span>Price: {item.price}</span>
+            </CheckoutBasketItem>
+          ))}
+        </CheckoutBasket>
 
         {/* Row 7 */}
         <CheckoutHeader>
@@ -117,7 +124,7 @@ const Checkout = () => {
           <CheckoutAddress>
             <CheckoutInput
               type="text"
-              name="shippingAddress1"
+              name=" shippingAddress1"
               invalid={showError("shippingAddress1")}
               placeholder="Enter first address line"
             />
@@ -125,10 +132,10 @@ const Checkout = () => {
             <input type="text" name="shippingCity" />
           </CheckoutAddress>
         </CheckoutTable>
-
         <CancelButton onClick={() => navigate("/basket")}>Cancel</CancelButton>
 
         <CheckoutButton disabled={disabled}>Confirm Order</CheckoutButton>
+        {/* <RelatedProducts /> */}
       </CheckoutContainer>
     </form>
   );
@@ -142,9 +149,9 @@ const CheckoutContainer = styled.div`
   grid-template-rows: 0.25fr 1fr 0.25fr 0.25fr 0.25fr 0.5fr;
   grid-template-columns: 0.1fr 1fr 0.1fr;
 `;
+
 const CheckoutTable = styled.div`
   grid-column: 1 / span 3;
-
   display: grid;
   grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr;
   grid-template-columns: 0.1fr 0.4fr 0.1fr 0.4fr;
@@ -156,11 +163,13 @@ const CheckoutHeader = styled.div`
   grid-column: 1 / span 3;
   padding-top: 20px;
 `;
+
 const CheckoutHeaderLine = styled.hr`
   grid-column: 1 / span 3;
   margin-bottom: 20px;
   border: 1px solid gray;
 `;
+
 const CheckoutTitle = styled.h2`
   grid-column: 1 / span 2;
   padding-bottom: 20px;
@@ -168,7 +177,6 @@ const CheckoutTitle = styled.h2`
 
 const CheckoutAddress = styled.div`
   display: grid;
-
   grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr;
   grid-template-columns: 1fr;
   grid-row-gap: 10px;
@@ -185,9 +193,9 @@ const CheckoutInput = styled.input`
   ${(props) =>
     props.invalid &&
     `
-        border-color: red;
-        border-width: 3px;
-    `}
+    border-color: red;
+    border-width: 3px;
+  `}
 `;
 
 const CheckoutFormCheckbox = styled.input`
@@ -206,4 +214,15 @@ const CancelButton = styled.button`
   border-radius: 8px;
   height: 40px;
   grid-column: 1;
+`;
+
+const CheckoutBasket = styled.div`
+  grid-column: 1 / span 3;
+  padding-top: 20px;
+`;
+
+const CheckoutBasketItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 `;

@@ -86,6 +86,7 @@ const Basket = () => {
       <BasketButton onClick={() => setCartItems(clearBasket())}>
         Clear
       </BasketButton>
+
       <BasketTotal>Total: {renderTotal()}</BasketTotal>
     </BasketContainer>
   );
